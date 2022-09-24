@@ -1,0 +1,62 @@
+#CC= gcc -O 
+#CC= cc -O3 -qstrict
+CC= xlc -O3 -qstrict
+CFLAGS= -qcpluscmt -D__AIX
+LFLAGS= -lm -o
+
+PROGS= lutefisk
+
+SPROGS= lutefisk
+
+.c.o:
+	$(CC) $(CFLAGS) -c $<
+
+all : $(PROGS)
+
+sall : $(SPROGS)
+
+install : 
+	cp $(PROGS) $(BIN)
+
+clean-up : 
+	rm *.o $(PROGS)
+
+lutefisk : LutefiskGlobalDeclarations.o LutefiskMain.o LutefiskGetCID.o LutefiskHaggis.o LutefiskMakeGraph.o LutefiskSummedNode.o LutefiskSubseqMaker.o LutefiskScore.o LutefiskXCorr.o LutefiskFourier.o LutefiskGetAutoTag.o ListRoutines.o
+	$(CC) LutefiskGlobalDeclarations.o LutefiskMain.o LutefiskGetCID.o LutefiskHaggis.o LutefiskMakeGraph.o LutefiskSummedNode.o LutefiskSubseqMaker.o LutefiskScore.o LutefiskXCorr.o LutefiskFourier.o LutefiskGetAutoTag.o ListRoutines.o $(LFLAGS) lutefisk
+
+ 
+LutefiskGlobalDeclarations.o : LutefiskGlobalDeclarations.c
+	$(CC)  $(CFLAGS) -c LutefiskGlobalDeclarations.c
+
+LutefiskMain.o : LutefiskMain.c
+	$(CC)  $(CFLAGS) -c  LutefiskMain.c
+
+LutefiskGetCID.o : LutefiskGetCID.c
+	$(CC)  $(CFLAGS) -c  LutefiskGetCID.c
+
+LutefiskHaggis.o : LutefiskHaggis.c
+	$(CC)  $(CFLAGS) -c  LutefiskHaggis.c
+
+LutefiskMakeGraph.o : LutefiskMakeGraph.c
+	$(CC)  $(CFLAGS) -c  LutefiskMakeGraph.c
+
+LutefiskSummedNode.o : LutefiskSummedNode.c
+	$(CC)  $(CFLAGS) -c  LutefiskSummedNode.c
+
+LutefiskSubseqMaker.o : LutefiskSubseqMaker.c
+	$(CC)  $(CFLAGS) -c  LutefiskSubseqMaker.c
+
+LutefiskScore.o : LutefiskScore.c
+	$(CC)  $(CFLAGS) -c  LutefiskScore.c
+
+LutefiskXCorr.o : LutefiskXCorr.c
+	$(CC)  $(CFLAGS) -c  LutefiskXCorr.c
+
+LutefiskFourier.o : LutefiskFourier.c
+	$(CC)  $(CFLAGS) -c  LutefiskFourier.c
+
+LutefiskGetAutoTag.o : LutefiskGetAutoTag.c
+	$(CC)  $(CFLAGS) -c  LutefiskGetAutoTag.c
+
+ListRoutines.o : ListRoutines.c
+	$(CC)  $(CFLAGS) -c  ListRoutines.c

@@ -1,0 +1,175 @@
+Lutefisk Code History
+----------------------
+
+Version 1.0 - Released 5/30/97 
+Version 1.1 - Released 6/22/97
+            - Fixed some problems in GetCidData() with reading of Finnigan ASCII files.     
+Version 1.3 - Released 11/17/97
+            - Compilable with gcc 2.7 on UNIX.
+            - Command line options added to specify the output and param files.
+Version 1.4.5 
+	- monoisotopic to average mass switch occurs over a 400 Da range
+	- auto-tag automatically finds sequence tags prior to sequencing
+	- auto-peakwidth automatically finds the peakwidth of profile data
+	- for unit resolved spectra, the 2xC13 peak is discarded
+	- cross-correlation bins every 0.5 Da instead of 1 Da
+	- over-used ions in the final scoring are identified (same ions considered to be b and y) and final score reduced
+	- the final scoring section was more carefully debugged and simplified
+Version 1.4.6
+	- auto-tag altered so that N-terminal mass can be three amino acids
+	- in final scoring, sequences not ending in R or K for tryptic peptides are penalized
+	- ions that connect to 147 or 175 for tryptic peptides were retained regardless of the intensity
+Version 1.4.7
+	- a few bugs that affected Unix operation were fixed
+Version 1.4.8
+	- a few more bugs were found and fixed
+
+Verson 2.0.1
+	- more bugs
+	- modified to better handle ion trap data
+
+Version 2.0.2
+	- added ability to directly read Finnigan .dat files
+	- rearranged the .params file into a more sensible order
+
+Version 2.0.3
+	- found a spot in GetCID where dividing by zero
+	- added function to GetCID that eliminates ions below a specific s/n (SIGNAL+AF8-NOISE in the definitions file).  The noise is determined in a 100 da range local to each ion.
+	- added ability to read Sequest .dta files (Martin Baker)
+	- added default output to match input name plus +ACI-.lut+ACI- (Martin Baker)
+Version 2.0.4
+	- added stuff to make compatible with Codewarrior compilier for Win32
+	- added stuff to allow it to compile on DEC alpha
+Version 2.0.5 - Released 10/16/98
+	-bugs and the like
+
+##############################################################################
+Lutefisk for the new millenium:
+##############################################################################
+
+Lutefisk1900 version 1.2.4
+- changed code so that data was not converted to nominal masses+ADs- this means that high mass accuracy measurements will not be wasted.
+- because of temperature dependent drifts in the calibration slope of qtof data, the program will recalibrate the data for each candidate sequence.  This allows for poorly calibrated qtof data to still have a tight fragment ion tolerance applied.
+- the program will input sequences derived from database matches and compare these with the de novo derived candidate sequences.  This allows for an electronic validation of a database hit.
+- a CID data quality check has been added as an option.  It looks for low mass amino acid related ions, high mass ions that can be connected by amino acid residue masses, as well as a general check on data strangeness (few ions, negative masses, precursor charge, etc).
+- code was modified to accomodate data that had been processed using Micromass's Maxent3 software.  This software converts fragments to corresponding singly-charged values, and also removes isotope peaks.
+- the lutefisk.residues file was added in order for people to add unusual amino acids to the list of common ones.
+- some bugs were removed and others were added
+
+Lutefisk1900 version 1.2.5
+- changed LutefiskMakeGraph so that  y ions resulting from the loss of a single N-terminal amino acid is graphed as a node even if there is no corresponding  y ion.
+- changed main so that if the peakWidth parameter is set to zero for centroided data, that the autopeak width feature is not used.  Its not possible to determine peakwidths from centroided data, and was getting slightly screwy results.  If peakwidth is zero, then reasonable values are inserted depending on the instrument (0.75 for qtof and 1 for lcq).
+- changed LutefiskGetCID where there was an error in reading LCQ text files.  The intensity values in the file are real, but were read into a struct value that needed an int+ADs- hence the intensity values were getting garbled.
+
+Lutefisk1900 version 1.2.6
+- changed LutefiskGetCID so that it would not bomb-out when looking for a header to 'tab text' input file formats.
+- changed LutefiskScore so that it would include losses of CH3SOH from oxidized methionine.  If the mass accuracy is sufficient to distinguish oxMet from Phe, then this loss is only considered for b and y ions that contain the oxMet.  For lower accuracy, losses of 64 u from b and y ions that contain either Phe or oxMet are considered.
+
+Lutefisk1900 version 1.2.7
+- changed ExpandSequence in LutefiskScore.c so that it checks to see how many new qtof sequences could be generated for each original sequence.  In some rare instances (particularly for longer sequences), it was possible to expand a single sequence into many thousand related sequences (oxMet replacing Phe, or Gln replacing Lys, etc).  Although not a bug, it was bogging things down.  It now checks to make sure that there are no more than 500 new sequences expanded from the original+ADs- if there are too many, then it only allows sequence expansion for single amino acids (oxMet/Phe and Gln/Lys), and other reasons for expansion (multiple dipeptide choices, or Trp plus three dipeptides of the same mass) are eliminated.  This should keep Lutefisk from getting hung up on certain spectra.
+- checks to make sure that peptide lengths do not exceed the array limits -- if they do, then it just exits w/o going any further.
+
+Lutefisk1900 version 1.2.8
+- changed the cross-correlation scoring so that instead of subtracting the average value of tau from -75 to 75, it does a point by point subtraction of the two numbers on each side of tau, takes the absolute value, and sums this over the range of -250 to 250.  In other words, it subtracts tau(250) from tau(-250) and adds that to tau(249)-tau(-249), etc.  This value is subtracted from tau(0) to give the cross-correlation score.
+- changed the normalization of the cross-correlation score so that it is normalized to the auto-correlation of the spectrum itself (after the funny intensity normalizations).
+- The program can determine best scoring sequences for incorrect peptide molecular weights.  It determines the best sequences for MW  14xN where N is any number from zero to 20 (or more if you want).  It determines an average best wrong score and standard deviations around the mean, and then compares this with the best score for the correct peptide molecular weight.  This allows for a statistical evaluation of the Lutefisk1900 results.  
+- Because of all this looping, I found some memory leaks (fixed).
+- Found a place where peptides exceeding the allowed length were stomping on some memory.
+- Added a spectrum quality assessment following completion of the sequencing.  Its based on Pavel Pevzner comment that quality +AD0- +ACM-y or b ions / number of possible y or b ions.  In practice, lutefisk will find the longest contiguous stretch of uninterrupted y or b ions and divide this by the (total number of amino acids minus one).  A dipeptide in the sequence is not counted as an interrupted series+ADs- however, the dipeptide counts as two amino acids in the denominator.  No skips are allowed.
+
+Lutefisk1900 version 1.2.9
+- The quality score from v1.2.8 is now used for screening candidate sequences.  A minimum quality score is determined from the highest quality candidate, and candidates below this minimum are tossed out.
+- Various bug fixes.
+
+Lutefisk1900 version 1.3.1
+- Revamped command-line invocation to be more intuitive. Now can say 'lutefisk +ACo-.dta'
+- The '-q' flag now completely quiets STDOUT output.
+- Various minor bug fixes to aid compilation on some systems.
+
+Lutefisk1900 version 1.3.2
+- fixed bug in GetCID so that plusArgLys array is initialized properly
+- set limits on +ACI-quality+ACI- and final combined scores, below which the sequences are trashed
+- minor change in final scoring of database-derived sequence
+- changed LutefiskScore so that when Qtof sequences are expanded, any given original sequence can only generate 250 new ones.  When doing this procedure using the wrong peptide mass (statistical analysis) the program is limited to 50 new sequences for every old one.
+
+Lutefisk1900 version 1.3.3
+- An output file is now made even when no scoring candidates are generated.
+
+Lutefisk1900 version 1.3.4
+- Fixed a buffer overflow problem in PeptideString() caused by long peptides.
+
+Lutefisk1900 version 1.3.5
+- Changed the way that the N- and C-terminal masses are entered.  Now it is possible to provide any mass rather than specific ones.
+
+Lutefisk1900 version 1.3.7
+- Made it so that the y1 and y2 goldenboy ions could not be removed on the basis of their intensity
+- Added the Haggis type of subsequencing.  This finds series of ions connected by single amino acids, 
+makes two sequences (forward and backward), and adds it to the list of sequence candidates.
+- Changed the +ACI-fuzzy logic+ACI- bit in LutefiskScorer so that mass variation from the calculated values have an affect on ion scores in a manner that follows a normal distribution (instead of a linear drop off).
+
+Lutefisk1900 version 1.3.8
+- Changed final scoring of candidate sequences.  About 150 spectra from both LCQ and Qtof were
+examined and sequence candidates with particularly high or low values for Pevscr (pavel pevzner)
+Intscr (intensity based scoring, quality (fraction of peptide mass accounted for by contiguous
+ion series) and xcorr (cross correlation score) were retained or discarded.  An average of these
+four scores was calculated and an emperically derived probability of being correct was determined.
+The output is an estimated probability of being correct (Pr(c)).
+- Looks for pairs of y/b ions to re-determine the peptide MW in LCQ data.
+
+Lutefisk1900 version 1.3.9
+- bug fixes
+- scores slightly differently for candidate sequences that contain more Arg's than protons on the precursor
+
+##################################################################################################
+LutefiskXP LutefiskXP LutefiskXP LutefiskXP LutefiskXP LutefiskXP LutefiskXP LutefiskXP LutefiskXP 
+LutefiskXP LutefiskXP LutefiskXP LutefiskXP LutefiskXP LutefiskXP LutefiskXP LutefiskXP LutefiskXP 
+LutefiskXP LutefiskXP LutefiskXP LutefiskXP LutefiskXP LutefiskXP LutefiskXP LutefiskXP LutefiskXP 
+##################################################################################################
+
+LutefiskXP version 1.0
+- The Haggis sequencing was modified so that two ion series could be combined.
+- The Haggis sequencing was modified so that the two unsequenced masses at either end could be matched to randomly
+derived sequences.  The random sequences that fit with the most b and y ions is saved and replaces the chunk of mass.
+- Added two output variables to the params file.  Now can specify the number of sequences and their Pr(c) limit.
+- Modified final scoring slightly, such that +ACI-quality+ACI- has less of an influence.
+
+LutefiskXP version 1.0.3
+- When Q is in the second position, then a c1 ion is present.  It is now scored, and used to distinguish the two amino acids if they are not already.
+- Limits placed on the number of subsequences (drops by half) if the program has been processing for over 30 seconds. 
+It drops by another half if the processing is over a minute. This will speed long ones up.
+- Limits placed on the deconvolution of the C-terminal unsequenced chunk of mass (in Haggis).  If the overall 
+processing has gone on for over 45 sec then it drops the mass to 600.
+- For LCQ data, b/y pairs are found and labeled as "golden boys" that cannot be gotten rid of as easily.  
+These could also be considered "favored sons", although we can all hope that the favored son "W" is 
+eliminated in November.
+- Fixed the ranking so that the db derived sequences don't fowl up the rank numbering.
+- Fixed a bug that, in certain cases, produced negative values for summed residue masses displayed within brackets
+- Changed the LCQ b/y pair procedures (both in GetCID and main) such that pairs were either both singly charged,
+or one was singly-charged and the other doubly-charged (but only if the precursor is > 2 charge state).
+- Changed Haggis a bit so that the minimum number of edges required to be considered a sequence varied with
+the number of Lutefisk sequences already obtained as well as peptide molecular weight.  Minimum stayed at 4, but could
+be higher.
+- Changed Haggis so that if the array capacity was exceeded, it dumped the results obtained with the Lutefisk
+sequences and then continued to run (rather than exit(1), which is a waste).
+
+LutefiskXP version 1.0.4
+- changed the way the ion intensity is altered in the final scoring.  The high intensity
+ions are reduced, but the low intensity ones are not increased
+
+
+LutefiskXP version 1.0.5
+- Added clean bailout code if less than five ions remain after pre-processing the data. (JAT)
+
+LutefiskXP version 1.0.6
+- Internal release. Minor changes.
+
+LutefiskXP version 1.0.7
+- Minor changes.
+
+
+Richard S. Johnson
+jsrichar@alum.mit.edu
+
+
+
+

@@ -1,0 +1,400 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./paramsDescrip_files/filelist.xml">
+<title>paramsDescrip</title>
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:Times;
+	panose-1:2 2 6 3 5 4 5 2 3 4;
+	mso-font-charset:0;
+	mso-generic-font-family:roman;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:3 0 0 0 1 0;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{margin-right:0in;
+	mso-margin-top-alt:auto;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+<!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="1027"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+<meta name=Template content="C:\Program Files\Microsoft Office\Office\html.dot">
+</head>
+
+<body bgcolor=white lang=EN-US link=blue vlink=purple style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<h1>Lutefisk.params file parameters</h1>
+
+<p>&nbsp;</p>
+
+<p><b><span style='font-family:Times'>CID Filename:</span></b><span
+style='font-family:Times'> Name of the CID data file. A full or partial
+pathname can be specified.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>CID Quality: </span></b><span
+style='font-family:Times'>If you would like the program to give you it's opinion
+on the quality of the CID data, type &quot;Y&quot; or &quot;N&quot;.<span
+style="mso-spacerun: yes">  </span>I gave up on this and no longer use it, so
+the default is “N”.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Peptide MW:</span></b><span
+style='font-family:Times'> Give the peptide molecular weight (NOT MH+!!)
+including any number of decimal places, depending on the mass accuracy of the
+instrument. For Sequest &quot;.dta&quot; files, a zero can be entered here, in
+which case the peptide molecular weight is obtained from the file header.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Charge-state:</span></b><span
+style='font-family:Times'> This is the charge state of the precursor ion. Any
+integer number can be used, although the program works best on CID spectra
+obtained from singly or doubly charged ions. Triply-charged ion precursors in a
+triple quad do not often yield complete sets of fragmentation ions sufficient
+to delineate a full-length sequence. For Sequest &quot;.dta&quot; files, a zero
+can be entered here, in which case the precursor charge is obtained from the
+file header.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>MaxEnt3:</span></b><span
+style='font-family:Times'> Were the data subjected to a Max Ent 3 type of
+processing; ie, were the multiply charged fragment ions converted to their
+singly-charged counterparts and were the C13 isotope peaks removed? Answer
+&quot;Y&quot; or &quot;N&quot;.<o:p></o:p></span></p>
+
+<p><span style='font-family:Times'>&nbsp;<o:p></o:p></span></p>
+
+<h2>Mass Tolerances:</h2>
+
+<p><b><span style='font-family:Times'>Peptide Error (u):</span></b><span
+style='font-family:Times'> This is the error in the peptide mass measurement in
+Daltons or fractions of a Dalton. This tolerance can be set as tight as you
+think your data warrants - 1 or 2 Daltons for low mass accuracy is suitable, or
+you can use a few hundredths of a Dalton for very accurate mass measurements.
+It is up to you.<span style="mso-spacerun: yes">  </span>For LCQ data, the
+software will try to “re-adjust” the peptide MW based on y/b ion pairs, so I
+generally choose 0.65 u as the peptide MW error for ion traps.<span
+style="mso-spacerun: yes">  </span>I use 0.45 for Qtof’s.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Fragment Error (u):</span></b><span
+style='font-family:Times'> This is the error in measurement of the m/z values
+of the fragment ions. For high quality triple quad data with unit resolution in
+Q3, I use a value of 0.5; for low resolution triple quad data I go with 0.75 or
+1.0. For ion trap data, I typically use a value of 0.65. For poorly calibrated
+Qtof data, I use a value of 0.15 to 0.25, but for very well-calibrated data
+this tolerance can be reduced to 0.02 to 0.05 u.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Final Fragment Err (u):</span></b><span
+style='font-family:Times'> This value only applies to Qtof data. The idea is
+that temperature dependent expansion and contraction of the flight tube will
+change the calibration; however, the errors that result are linear. Lutefisk
+operates by finding a list of candidate sequences, and then it scores these
+candidates based on how well the predicted fragments match up with the observed
+fragments. In the final evaluation of sequence candidates derived from Qtof
+data, the calculated b- and y-type ions of each sequence are used to adjust the
+calibration of the data. Once the data has been recalibrated, then this Final
+Fragment Err is applied. Typically, I use a value of 0.02. If a value of zero
+is entered, then this recalibration feature is disabled and not applied.<o:p></o:p></span></p>
+
+<p><span style='font-family:Times'>Lately, for Qtof data, I use a Peptide Error
+of 0.45, a Fragment Error of 0.25, and a Final Fragment Err of 0.02. For
+nanospray ion trap data (collected in profile mode so that monoisotopic peaks
+can be identified), I use a Peptide Error of 0.45, a Fragment Error of 0.45,
+and a Final Fragment Err of zero (no effect). Larger peptide and fragment
+tolerances of 0.65 u are used for LC/MS/MS data from ion traps -- the
+centroided ions are not monoisotopic, hence the greater error.<o:p></o:p></span></p>
+
+<h2>Memory and Speed:</h2>
+
+<p><b><span style='font-family:Times'>Max. Final Sequences:</span></b><span
+style='font-family:Times'> This is the maximum number of completed sequences
+(sequences that equal the specified peptide mass plus/minus the peptide mass
+tolerance) that can be stored before discarding low scoring sequences. This
+value is dependent on the RAM available to the program (see below); I generally
+use a value of 20000.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Max Subsequences:</span></b><span
+style='font-family:Times'> This is the maximum number of subsequences (partial
+sequences that get extended amino acid by amino acid) that can be stored before
+discarding low scoring subsequences. I usually allow 5000 subsequences to be
+processed, but this is also dependent on the amount of RAM that is available
+for Lutefisk. In one test case (Mac G3), I found that 12288 K was sufficient to
+allow for 20000 final sequences (above) and 5000 subsequences; 4096 was
+sufficient to allow for 10000 final sequences (above) and 2500 subsequences. I
+would recommend giving Lutefisk a bit more than the bare minimum, since I won't
+guarantee that in all cases your computer won't crash when short on RAM. In
+addition, the number of subsequences allowed is also dependent on the processor
+speed; I find that 5000 subsequences can take my G3 a few seconds to a minute
+to process data from a 1500 u peptide. <o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Mass Scrambles for Statistics:</span></b><span
+style='font-family:Times'> To help determine if the output is correct or nearly
+correct, Lutefisk compares the output to other sequences that are close
+matches, but known to be wrong. Typically, a value of six is used for this
+parameter, in which case, it derives the six best candidate sequences assuming
+six different incorrect peptide molecular weights. The incorrect molecular
+weights are 14 u, 28 u, and 42 u less than and greater than the correct peptide
+mass. The results are known to be wrong, and the scores for these wrong
+sequences are compared to the results derived by using the correct peptide
+mass. If you don't want to make a comparison to wrong sequences, then enter a
+zero for this parameter.<span style="mso-spacerun: yes">  </span>Lately, I have
+decided that this feature is not all that useful, so I use a value of zero.<span
+style="mso-spacerun: yes">  </span><o:p></o:p></span></p>
+
+<h2>Spectral Processing:</h2>
+
+<p><b><span style='font-family:Times'>CID File Type:</span></b><span
+style='font-family:Times'> Enter &quot;F&quot; if the CID data file is derived
+from the Finnigan &quot;List&quot; program, &quot;T&quot; if it is a
+tab-delineated ASCII file, &quot;L&quot; if it is a text file from the LCQ file
+converter program, or &quot;D&quot; if it is a &quot;.dta&quot; file.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Profile/Centroid:</span></b><span
+style='font-family:Times'> Profile data is subjected to a 5-point digital
+smooth; this is the only difference in processing. By entering a 'D' here, the
+program automatically differentiates between profile and centroid data. When
+using this default feature, I found that for some Sequest &quot;.dta&quot;
+files the program would mistakenly decide that it was profile data, so data
+files ending w/ &quot;.dta&quot; are automatically assumed to be centroided.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Peak Width (u):</span></b><span
+style='font-family:Times'> This value is used in the peak detection part of the
+program, and is dependent on the resolution of the mass analyzer. For unit
+resolved peaks, the program tries to identify and discard adjacent C13 peaks.
+For unit resolved spectra I usually use a value of 1.5; for lower resolution
+MS/MS data on a triple quad I use a value of 3. The auto-peakwidth seems to
+work quite well for triple quad data. Put a zero here (&quot;0&quot;) to use
+auto-peakwidth when using profile data obtained from triple quads. For ion trap
+data, use 1 and for Qtof data use a value of 0.75.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Ion Threshold:</span></b><span
+style='font-family:Times'> Data with an intensity greater than the average intensity
+times this threshold is used for identifying peaks. I use a fairly low value of
+0.1.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Mass Offset (u):</span></b><span
+style='font-family:Times'> For data where the CID fragment ion m/z values are
+consistently off by a known value, this value can be entered here. For example,
+if the data is always low by 0.2 Da then 0.2 can be entered here. If it is
+always high by 0.2, then the value of -0.2 is entered. This situation arises if
+you acquire data at a different resolution setting than what the third
+quadrupole was calibrated for.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Ions Per Window:</span></b><span
+style='font-family:Times'> The program steps from ion to ion and counts the
+number of ions between it and a mass 120 Da higher (120 Da is close to the
+weight averaged amino acid residue mass). If there are too many ions within
+this moving window, then only those with the greatest intensity are retained.
+For regions of a CID spectrum that could contain multiply charged fragment
+ions, this window is narrowed accordingly (e.g., 60 Daltons for regions that
+could possibly contain doubly-charged fragment ions). I usually use a value of
+6 ions per window for unprocessed profile data. If your CID data contains
+centroided or peak top data that you have already processed by hand, i.e.,
+you've eliminated superfluous ions and you wish to use all of the ions in the
+interpretation, try using a larger number here (like 20).<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Ions Per Residue:</span></b><span
+style='font-family:Times'> This sets an overall limit to the number of ions to
+be considered. Since an average residue is of mass 120 Da, then a peptide of
+mass 1218 would be expected to have around 10 residues. I usually use a value of
+2.7 here, so in this example, the number of ions used for sequencing would be
+limited to 27.<o:p></o:p></span></p>
+
+<h2>Subsequencing:</h2>
+
+<p><b><span style='font-family:Times'>Transition Mass (u):</span></b><span
+style='font-family:Times'> This is the mass where the fragment mass values are in
+transition from monoisotopic to average mass values. Below this cutoff, peptide
+molecular weights and fragment ion m/z values are assumed to be monoisotopic
+masses. Above this cutoff average masses are assumed. For triple quadrupole
+data, I usually use a value of 1800. The cutoff is not abrupt; rather the
+switch occurs linear over a 400 Da range below the cutoff mass (ie, if 1800 is
+selected, the masses below 1400 are assumed to be monoisotopic, and those
+between 1400 and 1800 are in between). Since LCQ and Qtof data routinely give
+at least unit resolved MSMS data, I tend to set the cutoff very high (5000) for
+the trap data. This ensures that the program never has to deal with average
+mass calculations.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Fragmentation Pattern:</span></b><span
+style='font-family:Times'> The idea here was to allow for different types of
+fragmentation patterns to be recognized by the algorithm, thereby increasing
+the probability that the correct sequence will be amongst the candidate
+sequence list. Currently, there are only three types available - low energy CID
+of tryptic peptides on a triple quad, low energy CID of tryptic peptides on a
+Qtof, and low energy CID of tryptic peptides on an ion trap. So this means that
+for now you must enter 'T' (for triple quad), 'Q' (for Qtof), or 'L' (for ion
+trap). <o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Max. Gaps:</span></b><span
+style='font-family:Times'> A gap is a dipeptide of unknown sequence, but of
+known mass. Usually I allow the presence of only one gap per sequence. However,
+since the two N-terminal amino acids are so frequently unsequenceable, this
+&quot;gap&quot; is not counted in this limit. A value of &quot;-1&quot; is typically
+used, which is a signal to use a default number of gaps per sequence that
+depends on the peptide mass -- larger peptides are allowed more dipeptide gaps
+than smaller ones.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Extension Threshold:</span></b><span
+style='font-family:Times'> For a given subsequence there may be several
+possible amino acid extensions. The extension with the best score determines a
+threshold that the other extensions must exceed - highest score times this
+threshold equals the limit. I've been using a value of 0.15.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Max. Exentensions:</span></b><span
+style='font-family:Times'> In addition to the threshold described above, it is
+possible to set a limit on the number of extensions allowed for each
+subsequence. Only those extensions with the highest score are used and the low
+scoring extensions are ignored. I use a value of 6 here.<o:p></o:p></span></p>
+
+<h2>Extras:</h2>
+
+<p><b><span style='font-family:Times'>Cysteine Mass:</span></b><span
+style='font-family:Times'> This variable is necessary to account for the
+various ways of alkylating cysteine residues. The easiest way to deal with the
+many possibilities is to have the user enter the residue mass of cysteine -
+160.03 for carbamidomethylated cysteine, 161.01 for carboxymethylated cysteine,
+208.07 for pyridylethylated cysteine, or any other value you want.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Proteolysis:</span></b><span
+style='font-family:Times'> This is different from the &quot;fragmentation
+pattern&quot; described above. If tryptic proteolysis (&quot;T&quot;) is
+selected then both Arg and Lys are forced into the C-terminal position
+regardless of whether there is any fragmentation data to support their
+presence. This does not eliminate other possible C-terminal amino acids; it
+only insures that Lys and Arg are included as possibilities. Likewise,
+selecting Lys-C (&quot;K&quot;) insures that Lys is at the C-terminus, and
+selecting Glu-C or V8 (&quot;E&quot;) insures that Asp and Glu are considered
+as C-terminal amino acids. By selecting Asp-N (&quot;D&quot;) the program makes
+sure that D is considered for the N-terminal amino acid even if there is no
+data supporting it is presence.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Modified N-terminus:</span></b><span
+style='font-family:Times'> You must specify the mass of the N-terminus.<span
+style="mso-spacerun: yes">  </span>For example, use 1.0078 for an unmodified
+peptide, 43.0184 if the peptide has been acetylated, or 44.0136 for
+N-carbamylated peptides.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Modified C-terminus:</span></b><span
+style='font-family:Times'> You must specify the mass of the C-terminus.<span
+style="mso-spacerun: yes">  </span>This is typically 17.0027 for unmodified
+peptides (-OH).<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Present Amino Acids:</span></b><span
+style='font-family:Times'> If a complete sequence lacks one of these amino
+acids then it is discarded. Use single letter code without spaces. Use '*' to
+denote none.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Absent Amino Acids:</span></b><span
+style='font-family:Times'> These amino acids are not even considered when
+generating sequences. Use single letter code without spaces. Use '*' to denote
+none.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Auto Tag:</span></b><span
+style='font-family:Times'> Auto-tag looks at the most intense ions at m/z
+values greater than the precursor. It then tries to find short stretches of
+sequences called &quot;sequence-tags&quot;, which are used to limit the number
+of sequences that are generated. I recommend using it for triple quad and Qtof
+data obtained for tryptic peptides with doubly-charged precursor ions. Specific
+sequence tags can still be entered as described below. Since ion trap data can
+have both b and y ions in the m/z region greater than the precursor ion, I find
+that it is best to not use the Auto-tag when sequencing with trap data.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Tag Low Mass y Ion:</span></b><span
+style='font-family:Times'> A sequence tag is a short stretch of sequence,
+usually interpreted by hand, that is surrounded by regions of unknown sequence
+but of known mass. Typically, these sequence tags are determined from y-type
+ions at m/z values greater than the precursor ion. If you have a sequence tag,
+then for this parameter, enter the m/z value of the lowest mass y ion in the
+series of y ions that delineates the sequence tag. If you do not wish to enter
+a sequence tag, then this value should be zero.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Sequence Tag: </span></b><span
+style='font-family:Times'>If you have a sequence tag, use the single letter
+code without spaces ordered from the low mass y ion to the high mass y ion. If
+you do not have a sequence tag, enter an asterisk (&quot;*&quot;).<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Tag High Mass y Ion:</span></b><span
+style='font-family:Times'> If you have a sequence tag, then the m/z value of
+the highest mass y ion in the y ion series that delineates the sequence tag is
+entered here. If you do not wish to enter a sequence tag, then this value
+should be zero. <o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Edman Data File</span></b><span
+style='font-family:Times'>: The program used to use Edman sequencing data, but
+this is no longer supported.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>DB Sequence File:</span></b><span
+style='font-family:Times'> If you have any sequences or a sequence that you
+might think is correct (derived from, say, a database search), this information
+is put into this file. Give the path and filename, and if this is left blank,
+then no database-derived sequences are checked.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Shoe size (US):</span></b><span
+style='font-family:Times'> Enter your shoe size here. If no entry, then a
+default value of 15 will be assumed.<o:p></o:p></span></p>
+
+<p><b><span style='font-size:18.0pt;mso-bidi-font-size:12.0pt;font-family:Times'>Output:<o:p></o:p></span></b></p>
+
+<p><b><span style='font-family:Times'>Number of sequences:</span></b><span
+style='font-family:Times'> Number of sequences to list in the .lut output
+file.<span style="mso-spacerun: yes">  </span>This number is the upper limit,
+and in many cases there will be less.<o:p></o:p></span></p>
+
+<p><b><span style='font-family:Times'>Score threshold:</span></b><span
+style='font-family:Times'><span style="mso-spacerun: yes">  </span>The lower Pr
+score (probability of having half of the sequence correct) limit.<span
+style="mso-spacerun: yes">  </span>Typically, a lower threshold score of 0.2 is
+fine.<span style="mso-spacerun: yes">  </span>To maximize the number of
+sequences in the output, make this value 0.01 and give a high number to “Number
+of sequences” (e.g., 50).<o:p></o:p></span></p>
+
+<p><span style='font-family:Times'><![if !supportEmptyParas]>&nbsp;<![endif]><o:p></o:p></span></p>
+
+</div>
+
+</body>
+
+</html>
