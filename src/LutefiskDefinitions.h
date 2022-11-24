@@ -65,7 +65,7 @@ jsrichar@alum.mit.edu
 #define BOOLEAN	unsigned char
 #endif
 
-#if defined __MWERKS__ && __dest_os == __win32_os
+#if TRUE//defined __MWERKS__ && __dest_os == __win32_os
 #define __LITTLE_ENDIAN
 #define CHAR	char
 #define SCHAR	signed char
